@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <script src="./moment.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <title>Document</title>
+  <style>
+    .title{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .item{
+      font-size: 14px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="title" id="time4"></div>
+  <div class="item" id="time1"></div>
+  <div class="item" id="time2"></div>
+  <div class="item" id="time3"></div>
+</body>
+<script>
+  let dom1 = document.querySelector('#time1')
+  let dom2 = document.querySelector('#time2')
+  let dom3 = document.querySelector('#time3')
+  let dom4 = document.querySelector('#time4')
+  var formatTime = function() {
+    dom1.innerHTML = moment('2021-01-29 17:00:00').diff(moment(), 'seconds') + '秒'
+    dom2.innerHTML = moment('2021-01-29 17:00:00').diff(moment(), 'minutes') + '分钟'
+    dom3.innerHTML = moment('2021-01-29 17:00:00').diff(moment(), 'hours') + '小时'
+    
+    let time = moment('2021-01-29 17:00:00').diff(moment(), 'seconds') * 1000
+    let d = moment.duration(time).days()
+    let h = ''
+    if(d>0){
+      h = moment.duration(time).hours() + d * 24
+    }else{
+      if(moment.duration(time).hours()<10){
+        h = '0'+moment.duration(time).hours()
+      }else{
+        h = moment.duration(time).hours()
+      }
+    }
+    let m = moment.duration(time).minutes()<10?'0'+moment.duration(time).minutes():moment.duration(time).minutes()
+    let s = moment.duration(time).seconds()<10?'0'+moment.duration(time).seconds():moment.duration(time).seconds()
+    dom4.innerHTML = `倒计时：${h}小时${m}分钟${s}秒`
+  }
+  setInterval(() => {
+    formatTime()
+  },1000)
+</script>
+</html>
